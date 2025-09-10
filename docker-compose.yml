@@ -3,12 +3,14 @@ services:
     image: mysql:8.0
     container_name: otaku_mysql
     environment:
+      PRISMA_ENGINES_MIRROR: "https://prisma-builds.vercel.app"
+      PRISMA_ENGINES_CHECKSUM_IGNORE_MISSING: "true"
       MYSQL_DATABASE: otakushop
       MYSQL_USER: otaku
       MYSQL_PASSWORD: otaku_pass
       MYSQL_ROOT_PASSWORD: root_pass
     ports:
-      - "3307:3306"
+      - "3307:3306"                       # tránh đụng 3306 đang bận trên Windows
     volumes:
       - db_data:/var/lib/mysql
     command: ["--default-authentication-plugin=mysql_native_password","--mysqlx=0"]
