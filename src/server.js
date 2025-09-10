@@ -1,12 +1,25 @@
-const express = require("express");
-const path = require("path");
+const express = require('express');
+const path = require('path');
+
+// Khởi tạo ứng dụng Express
 const app = express();
 
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-app.use(express.static(path.join(__dirname, "public")));
+// Thiết lập EJS làm view engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
-app.get("/", (_req, res) => res.render("pages/home", { msg: "Otaku Shop is running 🚀" }));
+// Cấu hình để phục vụ các tệp tĩnh (CSS, JS, Hình ảnh) từ thư mục 'public'
+app.use(express.static('public'));
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`http://localhost:${port}`));
+// Định tuyến cho trang chủ
+// Khi có người truy cập vào trang chủ ('/'), render tệp 'pages/home.ejs'
+// Quan trọng: Chúng ta không truyền biến 'msg' nữa.
+app.get('/', (req, res) => {
+  res.render('pages/home');
+});
+
+// Khởi động máy chủ
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
